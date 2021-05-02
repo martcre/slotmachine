@@ -9,9 +9,12 @@ public class TestSlotmachine {
 
     @Test
     public void testRun() {
-        Slotmachine slotmachine = new Slotmachine(12, 1, 3, 0.4, 0.05);
-
+        double spread = 0.05;
+        double probability = 0.4;
         int limit = 1000;
+
+        Slotmachine slotmachine = new Slotmachine(12, 1, 3, probability, spread);
+
         int winCount = 0;
 
         for (int i = 0; i < limit; i++) {
@@ -20,14 +23,13 @@ public class TestSlotmachine {
             }
         }
 
-        double probability = ((double) winCount / (double) limit);
+        double probabilityResult = ((double) winCount / (double) limit);
 
-        double range = 0.05;
-        double expected = 0.4;
 
-        log.info("Limit: " + limit + " Wins: " + winCount + " Probability: " + probability);
 
-        Assert.assertTrue((probability >= (expected - range) && probability <= (expected + range)));
+        log.info("Limit: " + limit + " Wins: " + winCount + " Probability: " + probabilityResult);
+
+        Assert.assertTrue((probabilityResult >= (probability - spread) && probabilityResult <= (probability + spread)));
 
     }
 
